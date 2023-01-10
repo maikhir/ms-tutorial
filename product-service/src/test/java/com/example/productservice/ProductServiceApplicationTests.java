@@ -4,7 +4,6 @@ import com.example.productservice.dto.ProductRequest;
 import com.example.productservice.dto.ProductResponse;
 import com.example.productservice.repository.ProductRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.assertj.core.api.ObjectAssert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,21 +13,16 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.testcontainers.containers.MongoDBContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import java.lang.reflect.Array;
 import java.math.BigDecimal;
-import java.util.List;
 
-import static net.bytebuddy.matcher.ElementMatchers.is;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.testcontainers.shaded.org.hamcrest.MatcherAssert.assertThat;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @Testcontainers
 @SpringBootTest
@@ -77,9 +71,9 @@ class ProductServiceApplicationTests {
 
 		String responseAsString = result.andReturn().getResponse().getContentAsString();
 		ProductResponse response = objectMapper.readValue(responseAsString, ProductResponse[].class)[0];
-		Assertions.assertTrue(expectedProductResponse.getDescription().equals(response.getDescription()), "same Description");
-		Assertions.assertTrue(expectedProductResponse.getName().equals(response.getName()), "same name");
-		Assertions.assertTrue(expectedProductResponse.getPrice().equals(response.getPrice()), "same price" );
+		Assertions.assertEquals(expectedProductResponse.getDescription(), response.getDescription(), "same Description");
+		Assertions.assertEquals(expectedProductResponse.getName(), response.getName(), "same name");
+		Assertions.assertEquals(expectedProductResponse.getPrice(), response.getPrice(), "same price");
 
 	}
 
