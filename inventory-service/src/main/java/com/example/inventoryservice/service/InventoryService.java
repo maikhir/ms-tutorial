@@ -14,11 +14,6 @@ public class InventoryService {
 
     private final InventoryRepository inventoryRepository;
 
-//    @Transactional(readOnly = true)
-//    public boolean isInStock(String skuCode) {
-//        return inventoryRepository.findBySkuCode(skuCode).isPresent();
-//    }
-
     @Transactional(readOnly = true)
     public List<InventoryResponse> isInStock(List<String> skuCode) {
         return inventoryRepository.findBySkuCodeIn(skuCode).stream()

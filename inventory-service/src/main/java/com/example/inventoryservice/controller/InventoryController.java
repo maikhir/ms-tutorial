@@ -15,16 +15,9 @@ public class InventoryController {
 
     private final InventoryService inventoryService;
 
-//    @GetMapping("/{sku-code}")
-//    @ResponseStatus(HttpStatus.OK)
-//    //e.g. uri="http://localhost:8082/api/inventory/iphone-13,iphone_13_red"
-//    public boolean isInStock(@PathVariable("sku-code") String skuCode) {
-//        return inventoryService.isInStock(skuCode);
-//    }
-
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    //e.g. bester option uri="http://localhost:8082/api/inventory?skuCode=iphone-13&skudeCode=iphone_13_red"
+    //e.g. better option with uri="http://localhost:8082/api/inventory?skuCode=iphone-13&skudeCode=iphone_13_red"
     public List<InventoryResponse> isInStock(@RequestParam List<String> skuCode) {
         return inventoryService.isInStock(skuCode);
     }

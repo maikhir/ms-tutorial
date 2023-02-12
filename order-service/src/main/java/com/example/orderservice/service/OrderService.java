@@ -20,8 +20,8 @@ import java.util.UUID;
 @Transactional
 public class OrderService {
 
-     private final OrderRepository orderRepository;
-     private final WebClient webClient;
+    private final OrderRepository orderRepository;
+    private final WebClient webClient;
 
     public void placeOrder(OrderRequest orderRequest) {
         Order order = new Order();
@@ -37,20 +37,30 @@ public class OrderService {
                 .map(OrderLineItems::getSkuCode)
                 .toList();
 
-        InventoryResponse[] inventoryResponsesArray = webClient.get()
-                .uri("http://localhost:8082/api/inventory",
+        /*WebClient testclient= WebClient.create("http://localhost:8081");
+        InventoryResponse[] inventoryResponsesArray = testclient.get()
+                .uri("/api/inventory", uriBuilder -> uriBuilder.queryParam("skuCode", skuCodes).build())
+                .retrieve()
+                .bodyToMono(InventoryResponse[].class)
+                .block();*/
+
+
+
+       /* InventoryResponse[] inventoryResponsesArray = webClientBuilder.build().get()
+                .uri("http://localhost:8081/api/inventory",
                         uriBuilder -> uriBuilder.queryParam("skuCode", skuCodes).build())
+               .retrieve()
+               .bodyToMono(InventoryResponse[].class)
+               .block();
+*/
+        InventoryResponse[] inventoryResponsesArray = webClient.get()
+                .uri("http://localhost:8081/api/inventory",
+                    uriBuilder -> uriBuilder.queryParam("skuCode", skuCodes).build())
                 .retrieve()
                 .bodyToMono(InventoryResponse[].class)
                 .block();
 
-//        Boolean result = webClient.get()
-//                .uri("http://localhost:8082/api/inventory")
-//                .retrieve()
-//                .bodyToMono(Boolean.class)
-//                .block();
         boolean allProductsInStock = Arrays.stream(inventoryResponsesArray).allMatch(InventoryResponse::isInStock);
-
         if (allProductsInStock) {
             orderRepository.save(order);
         } else {
