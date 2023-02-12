@@ -1,2 +1,5 @@
-Service Discovery using netflix Eureka 2:02 youtube
-https://www.youtube.com/watch?v=mPPhcU7oWDU&t=6139s
+API Gateway
+https://youtu.be/mPPhcU7oWDU?t=9180
+
+attention!
+test with 2 inventory service, first change port to 8081 and start a normal run instance, than change port to 0 and start a new debug session.
