@@ -1,3 +1,9 @@
 /inventory-service/target/*
 /order-service/target/*
 /product-service/target/*
+/discovery-service/target/classes/application.properties
+/discovery-service/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+/infrastructure/database/db/journal/WiredTigerPreplog.0000000002
+/infrastructure/database/db/journal/WiredTigerPreplog.0000000001
+/infrastructure/database/db/journal/WiredTigerLog.0000000006
+/infrastructure/database/db/WiredTigerHS.wt
